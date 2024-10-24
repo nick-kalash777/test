@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StudentLoader implements Loader<Student> {
     @Override
-    public List<Student> loadFile(String filePath) {
+    public List<Student> loadFile(String filePath) throws IllegalArgumentException, IOException {
         List<Student> students = new ArrayList<>();
         try (FileReader reader = new FileReader(Path.of(filePath).toFile());
              CSVParser csvParser = new CSVParser(reader,
@@ -33,12 +33,6 @@ public class StudentLoader implements Loader<Student> {
                         .build());
             }
 
-        } catch (IllegalArgumentException e) {
-            System.out.println("CSV file is corrupted.");
-            return null;
-        } catch (IOException e) {
-            System.out.println("Error reading file.");
-            return null;
         }
         return students;
     }
